@@ -1,0 +1,240 @@
+﻿@model IEnumerable<Project6_CreativeKids.Models.Cart>
+
+@{
+    ViewBag.Title = "Cart";
+}
+
+<main class="main-content">
+    <!--== Start Page Title Area ==-->
+    <section class="page-title-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12 m-auto">
+                    <div class="page-title-content text-center">
+                        <h2 class="title">Cart</h2>
+                        <div class="bread-crumbs"><a href="index.html"> Home </a><span class="breadcrumb-sep"> // </span><span class="active"> Cart</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--== End Page Title Area ==-->
+    <!--== Start Cart Area Wrapper ==-->
+    <section class="product-area cart-page-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 m-auto">
+                    <div class="section-title text-center">
+                        <h2 class="title">Cart</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="cart-table-wrap">
+                        <div class="cart-table table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+
+                                        <th class="width-name">Product</th>
+
+                                        <th class="width-quantity">Quantity</th>
+                                        <th class="width-price"> Price</th>
+                                        <th class="width-remove"></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @*@foreach (var item in ViewBag.Cart)
+        {
+            <tr>
+                <td class="product-thumbnail">
+                    <a href="shop-single-product.html"><img src="~/Content/assets/img/shop/details/@item.Product.image1" alt="Image"></a>
+                </td>
+                <td class="product-name">
+                    <h5><a href="shop-single-product.html">@Html.DisplayFor(modelItem => item.Product.name)</a></h5>
+                </td>
+                <td class="product-price"><span class="amount">$@Html.DisplayFor(modelItem => item.Product.price)</span></td>
+                <td class="cart-quality">
+                    <div class="product-details-quality">
+
+                        <input type="number" class="input-text qty text" step="1" min="1" max="100" name="@item.quantity" value="1" title="Qty" placeholder="">
+                    </div>
+                </td>
+                <td class="product-total"><span>$120.00</span></td>
+                <td class="product-remove">@Html.ActionLink("", "Delete", new { id = item.ID })<i class="ion-ios-trash-outline"></i></td>
+            </tr>
+
+                }*@
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+
+                                            <td class="product-name">
+                                                <h5><a href="shop-single-product.html">@Html.DisplayFor(modelItem => item.productName)</a></h5>
+                                            </td>
+
+                                            @using (Html.BeginForm("UpdateQuantity", "Home", FormMethod.Post))
+                                            {
+
+                                                <td class="cart-quality">
+
+                                                    @Html.Hidden("productID", item.product_ID)
+                                                    <div class="cart-item">
+
+
+                                                        <input type="number" name="Quantity" value="@item.quantity" min="1" class="quantity-input" />
+
+                                                        <input type="submit" value="Update" class="btn btn-theme" />
+                                                    </div>
+                                                </td>
+                                            }
+
+                                            <td class="product-price">
+                                                <span class="amount">
+                                                    $
+                                                    @(item.price * item.quantity)
+                                                </span>
+                                            </td>
+                                            @using (Html.BeginForm("RemoveFromCart", "Home", FormMethod.Post))
+                                            {
+                                                <td class="product-remove"><button type="submit" value="Remove" class="btn btn-danger"><i class="ion-ios-trash-outline"></i></button></td>
+                                                @Html.Hidden("productId", item.product_ID)
+
+                                            }
+
+
+                                        </tr>
+                                     
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="cart-shiping-update-wrapper">
+                        <div class="cart-shiping-btn continure-btn">
+                            <a class="btn btn-link" href="shop.html"><i class="ion-ios-arrow-left"></i> Back To Shop</a>
+                        </div>
+                        <div class="cart-shiping-btn update-btn">
+                            <a class="btn btn-link" href="shop.html"><i class="ion-ios-reload"></i> Back To Shop</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="cart-calculate-discount-wrap mb-40">
+                        <h4>Calculate shipping </h4>
+                        <div class="calculate-discount-content">
+                            <div class="select-style">
+                                <select class="select-active">
+                                    <option>Bangladesh</option>
+                                    <option>Bahrain</option>
+                                    <option>Azerbaijan</option>
+                                    <option>Barbados</option>
+                                    <option>Barbados</option>
+                                </select>
+                            </div>
+                            <div class="select-style">
+                                <select class="select-active">
+                                    <option>State / County</option>
+                                    <option>Bahrain</option>
+                                    <option>Azerbaijan</option>
+                                    <option>Barbados</option>
+                                    <option>Barbados</option>
+                                </select>
+                            </div>
+                            <div class="input-style">
+                                <input type="text" placeholder="Town / City">
+                            </div>
+                            <div class="input-style">
+                                <input type="text" placeholder="Postcode / ZIP">
+                            </div>
+                            <div class="calculate-discount-btn">
+                                <a class="btn btn-link" href="#/">Update</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="cart-calculate-discount-wrap mb-40">
+                        <h4>Coupon Discount </h4>
+                        <div class="calculate-discount-content">
+                            <p>Enter your coupon code if you have one.</p>
+                            <div class="input-style">
+                                <input type="text" placeholder="Coupon code">
+                            </div>
+                            <div class="calculate-discount-btn">
+                                <a class="btn btn-link" href="#/">Apply Coupon</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <!--== End Cart Area Wrapper ==-->
+</main>
+<script type="text/javascript">
+    function changeQuantity(button, change) {
+        // Get the input field next to the clicked button
+        var input = button.parentElement.querySelector('.quantity-input');
+        // Parse the current value
+        var currentValue = parseInt(input.value);
+
+        // Calculate new value
+        var newValue = currentValue + change;
+
+        // Ensure the new value is at least 1
+        if (newValue >= 1) {
+            input.value = newValue;
+        }
+    }
+</script>
+
+@*<h2>Cart</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User_Info.username)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User_Info.username)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>*@

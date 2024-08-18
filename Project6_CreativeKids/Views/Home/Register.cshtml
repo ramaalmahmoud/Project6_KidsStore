@@ -1,0 +1,78 @@
+﻿@model Project6_CreativeKids.Models.User_Info
+
+@{
+    ViewBag.Title = "Register";
+}
+@if (TempData["Alert"] != null)
+{
+    @Html.Raw(TempData["Alert"])
+}
+
+
+<div class="col-md-7">
+    <div class="login-register-content login-register-pl">
+        <div class="login-register-title mb-30">
+            <h2>Register</h2>
+            <p>Create new account today to reap the benefits of a personalized shopping experience. </p>
+        </div>
+        <div class="login-register-style">
+            @using (Html.BeginForm("Register", "Home", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="login-register-input">
+                    @Html.LabelFor(model => model.username, "User Name", htmlAttributes: new { @class = "control-label " })
+                    @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                </div>
+                <div class="login-register-input">
+                    @Html.LabelFor(model => model.email, "Email", htmlAttributes: new { @class = "control-label " })
+
+                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                </div>
+                <div class="login-register-input">
+
+                    @Html.LabelFor(model => model.password, "Password", htmlAttributes: new { @class = "control-label" })
+
+                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @type = "password", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="login-register-input">
+                    <label class="control-label ">Confirm Password</label>
+                    <input type="password" name="userPassword" class="form-control">
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                </div>
+                <div class="login-register-paragraph">
+                    <p>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <a href="#">privacy policy.</a></p>
+                </div>
+                <div class="btn-style-3">
+                    <button class="btn" type="submit">Register</button>
+                </div>
+                <div class="register-benefits">
+                    <h3>Sign up today and you will be able to :</h3>
+                    <p>The Loke Buyer Protection has you covered from click to delivery. Sign up <br>or sign in and you will be able to:</p>
+                    <ul>
+                        <li><i class="pe-7s-check icons"></i> Speed your way through checkout</li>
+                        <li><i class="pe-7s-check icons"></i> Track your orders easily</li>
+                        <li><i class="pe-7s-check icons"></i> Keep a record of all your purchases</li>
+                    </ul>
+                </div>
+
+
+            }
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

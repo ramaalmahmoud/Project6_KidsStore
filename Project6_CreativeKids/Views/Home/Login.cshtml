@@ -1,0 +1,42 @@
+﻿@model Project6_CreativeKids.Models.User_Info
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="col-md-5 login-register-border">
+    <div class="login-register-content">
+        <div class="login-register-title mb-30">
+            <h2>Login</h2>
+            <p>Welcome back! Please enter your username and password to login. </p>
+        </div>
+        <div class="login-register-style login-register-pr">
+            @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="login-register-input">
+                    @Html.LabelFor(model => model.email, "Email",htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                </div>
+                <div class="login-register-input">
+                    @Html.LabelFor(model => model.password,"Password", htmlAttributes: new { @class = "control-label" })
+
+                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @type = "password" ,@class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                    <div class="forgot">
+                        <a href="#">Forgot?</a>
+                    </div>
+                </div>
+
+                <div class="btn-style-3">
+                    <button class="btn" type="submit">Login</button>
+                </div>
+            }
+
+
+        </div>
+    </div>
+</div>
+
